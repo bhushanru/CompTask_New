@@ -16,7 +16,7 @@ namespace MarsFramework.Pages
     {
         public ManageListing()
         {
-            PageFactory.InitElements(GlobalDefinitions.driver, this);
+            PageFactory.InitElements(GlobalDefinitions.Driver, this);
         }
 
         #region  Initialize Web Elements 
@@ -54,22 +54,25 @@ namespace MarsFramework.Pages
         private IWebElement ActResult3 { get; set; }
         #endregion
 
-        public void EditListing()
+        public void EditListing(IWebDriver Driver)
         {
+
+            //Populate the Excel sheet
+            Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "EditShareSkillTestData");
 
             //Click Manage Listings Menu
             ManageListingsMenu.Click();
             Thread.Sleep(7000);
 
             //Click Edit Icon
-            //IJavaScriptExecutor js1 = (IJavaScriptExecutor)Driver;
-            //js1.ExecuteScript("arguments[0].click();", Element);
-            //Thread.Sleep(5000);
+            IJavaScriptExecutor js1 = (IJavaScriptExecutor)Driver;
+            js1.ExecuteScript("arguments[0].click();", Element);
+            Thread.Sleep(5000);
 
             //Change Title
             string title1 = Title.Text;
             Title.Clear();
-            Title.SendKeys("Industry Connect Software Tester");
+            Title.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
 
 
             //Click Savebutton
@@ -77,13 +80,13 @@ namespace MarsFramework.Pages
             Thread.Sleep(5000);
 
             //Verification   
-            var title2 = "Industry Connect Software Tester";
+            var title2 = Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             if (title1 == title2)
             {
                 Console.WriteLine("Test1 passed : title edited successfully");
                 Console.WriteLine("Test Pass: Skill Added");
                 // Screenshot
-                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");
                 Base.test.Log(LogStatus.Info, "Image example: " + img);
                 // end test. (Reports)
                 Base.extent.EndTest(Base.test);
@@ -114,15 +117,15 @@ namespace MarsFramework.Pages
 
 
 
-        public void DeleteListing()
+        public void DeleteListing(IWebDriver Driver)
         {
             //Click Manage Listings Menu
 
             ManageListingsMenu.Click();
             Thread.Sleep(5000);
 
-            //IJavaScriptExecutor js3 = (IJavaScriptExecutor)Driver;
-            //js3.ExecuteScript("arguments[0].click();", ManageListTitle);
+            IJavaScriptExecutor js3 = (IJavaScriptExecutor)Driver;
+            js3.ExecuteScript("arguments[0].click();", ManageListTitle);
 
             //try
             //{
@@ -149,7 +152,7 @@ namespace MarsFramework.Pages
                 Console.WriteLine("Test 3 Pass : Record deleted successully");
 
                 // Screenshot
-                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
                 Base.test.Log(LogStatus.Info, "Image example: " + img);
                 // end test. (Reports)
                 Base.extent.EndTest(Base.test);

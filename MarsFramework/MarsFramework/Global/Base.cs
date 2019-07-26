@@ -38,11 +38,11 @@ namespace MarsFramework.Global
             {
 
                 case 1:
-                    GlobalDefinitions.driver = new FirefoxDriver();
+                    GlobalDefinitions.Driver = new FirefoxDriver();
                     break;
                 case 2:
-                    GlobalDefinitions.driver = new ChromeDriver();
-                    GlobalDefinitions.driver.Manage().Window.Maximize();
+                    GlobalDefinitions.Driver = new ChromeDriver();
+                    GlobalDefinitions.Driver.Manage().Window.Maximize();
                     break;
 
             }
@@ -72,7 +72,7 @@ namespace MarsFramework.Global
         public void TearDown()
         {
             // Screenshot
-            String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+            String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
             test.Log(LogStatus.Info, "Image example: " + img);
             // end test. (Reports)
             extent.EndTest(test);

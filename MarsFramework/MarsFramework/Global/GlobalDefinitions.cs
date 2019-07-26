@@ -14,13 +14,14 @@ namespace MarsFramework.Global
     class GlobalDefinitions
     {
         //Initialise the browser
-        public static IWebDriver driver { get; set; }
+        public static IWebDriver Driver { get; set; }
+        
 
         #region WaitforElement 
 
         public static void wait(int time)
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time);
 
         }
         public static IWebElement WaitForElement(IWebDriver driver, By by, int timeOutinSeconds)

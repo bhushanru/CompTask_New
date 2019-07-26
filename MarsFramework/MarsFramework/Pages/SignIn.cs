@@ -14,7 +14,7 @@ namespace MarsFramework.Pages
     {
         public SignIn()
         {
-            PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
+            PageFactory.InitElements(Global.GlobalDefinitions.Driver, this);
         }
 
         #region  Initialize Web Elements 
@@ -41,31 +41,29 @@ namespace MarsFramework.Pages
             //extent Reports
             Base.test = Base.extent.StartTest("Login Test");
 
-            ////Populate the Excel sheet
-            //Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "SignIn");
+            //Populate the Excel sheet
+            Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "LoginTestData");
 
             ////Navigate to the Url
-            GlobalDefinitions.driver.Navigate().GoToUrl("http://www.skillswap.pro/");
-            //Global.GlobalDefinitions.driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Url"));
+            Global.GlobalDefinitions.Driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Url"));
 
             //Click on Sign In tab
             SignIntab.Click();
             Thread.Sleep(500);
 
             //Enter the data in Username textbox
-            Email.SendKeys("bhushanru@gmail.com");
-            //Email.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Username"));
+            Email.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Username"));
             Thread.Sleep(500);
 
             //Enter the password 
-            //Password.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
-            Password.SendKeys("bhubhu");
+            Password.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
+            
 
             //Click on Login button
             LoginBtn.Click();
             Thread.Sleep(5000);
 
-            string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("//a[contains(text(),'Mars Logo')]")).Text;
+            string text = Global.GlobalDefinitions.Driver.FindElement(By.XPath("//a[contains(text(),'Mars Logo')]")).Text;
 
             if (text == "MarsLogo")
             {

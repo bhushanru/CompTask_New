@@ -8,13 +8,14 @@ using MarsFramework.Global;
 using MarsFramework.Pages;
 using OpenQA.Selenium.Chrome;
 
+
 namespace MarsFramework
 {
     public class Program
     {
         [TestFixture]
         [Category("Sprint1")]
-        class Tenant : Global.Base
+        class Skill_listing : Global.Base
         {
 
             
@@ -27,7 +28,7 @@ namespace MarsFramework
 
                 //steps to Add a share skill
                 ShareSkill obj2 = new ShareSkill();
-                obj2.AddShareSkill();
+                obj2.AddShareSkill(GlobalDefinitions.Driver);
 
             }
 
@@ -38,7 +39,7 @@ namespace MarsFramework
                 test = extent.StartTest("Edit a skill");
                 //Edit listing
                 ManageListing obj3 = new ManageListing();
-                obj3.EditListing();
+                obj3.EditListing(GlobalDefinitions.Driver);
 
             }
 
@@ -49,7 +50,7 @@ namespace MarsFramework
                 test = extent.StartTest("Delete a skill");
                 //Delete a listing
                 ManageListing obj3 = new ManageListing();
-                obj3.DeleteListing();
+                obj3.DeleteListing(GlobalDefinitions.Driver);
 
             }
 

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Threading;
 using AutoItX3Lib;
 using NUnit.Framework;
+using System.Linq;
+using System.Text;
 
 
 namespace MarsFramework
@@ -18,7 +20,7 @@ namespace MarsFramework
 
         public ShareSkill()
         {
-            PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
+            PageFactory.InitElements(Global.GlobalDefinitions.Driver, this);
         }
 
         #region  Initialize Web Elements 
@@ -152,11 +154,11 @@ namespace MarsFramework
 
         #endregion
 
-        internal void AddShareSkill()
+        internal void AddShareSkill(IWebDriver Driver)
         {
 
-            //Populate the Excel Sheet
-            //GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
+            //Populate the Excel sheet
+            Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "ShareSkillTestData");
             Thread.Sleep(1000);
 
             //Click Share Skill button
@@ -164,10 +166,10 @@ namespace MarsFramework
             Thread.Sleep(5000);
 
             //Title Input
-            Title.SendKeys("Software Tester 7");
+            Title.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
 
             //Description Input
-            Description.SendKeys("I am an experienced software tester in both Manual and Automation");
+            Description.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
 
             //Select Category
             var selectElement1 = new SelectElement(Category);
@@ -181,7 +183,7 @@ namespace MarsFramework
             Console.WriteLine("Sub-Category selcted");
 
             //Select Tags
-            Tag1.SendKeys("testing");
+            Tag1.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Tag1"));
             Tag1.SendKeys(Keys.Enter);
 
             Console.WriteLine("Enter clicked");
@@ -198,41 +200,41 @@ namespace MarsFramework
             //Input for the whole week
             //Monday time
             MonCheck.Click();
-            MonStart.SendKeys("0900AM");
-            MonEnd.SendKeys("0500PM");
+            MonStart.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "MonStart"));
+            MonEnd.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "MonEnd"));
 
             //Tuesday time
             TuesCheck.Click();
 
-            TuesStart.SendKeys("0900AM");
-            TuesEnd.SendKeys("0500PM");
+            TuesStart.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "TuesStart"));
+            TuesEnd.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "TuesEnd"));
 
             //Wednesday time
             WedCheck.Click();
-            WedStart.SendKeys("0900AM");
-            WedEnd.SendKeys("0500PM");
+            WedStart.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "WedStart"));
+            WedEnd.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "WedEnd"));
 
             //Thursday time
             ThursCheck.Click();
-            ThursStart.SendKeys("0900AM");
-            ThursEnd.SendKeys("0500PM");
+            ThursStart.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "ThursStart"));
+            ThursEnd.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "ThursEnd"));
 
             //Friday time
             FriCheck.Click();
-            FriStart.SendKeys("0900AM");
-            FriEnd.SendKeys("0500PM");
+            FriStart.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "FriStart"));
+            FriEnd.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "FriEnd"));
 
             //Select Skill trade
             SkillTrade.Click();
 
             //Select Skill Exchange
-            SkillExchange.SendKeys("automation");
+            SkillExchange.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "SkillExchange"));
             SkillExchange.SendKeys(Keys.Enter);
 
             ////Upload Work Sample Upload click
-            //IJavaScriptExecutor js1 = (IJavaScriptExecutor)Driver;
-            //js1.ExecuteScript("arguments[0].click();", Upload);
-            //Thread.Sleep(5000);
+            IJavaScriptExecutor js1 = (IJavaScriptExecutor)Driver;
+            js1.ExecuteScript("arguments[0].click();", Upload);
+            Thread.Sleep(5000);
 
             AutoItX3 autoIt = new AutoItX3();
             Thread.Sleep(5000);
@@ -252,14 +254,14 @@ namespace MarsFramework
             //Verification
 
             ManageListing.Click();
-            string ExpectedResult1 = "Software Tester 7";
+            string ExpectedResult1 = Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             string ActualResult1 = ActualValue1.Text;
 
             if (ActualResult1 == ExpectedResult1)
             {
                 Console.WriteLine("Test Pass: Skill Added");
                 // Screenshot
-                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+                 String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
                Base.test.Log(LogStatus.Info, "Image example: " + img);
                 // end test. (Reports)
                 Base.extent.EndTest(Base.test);
