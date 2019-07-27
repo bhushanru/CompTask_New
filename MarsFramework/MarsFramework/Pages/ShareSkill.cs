@@ -251,9 +251,9 @@ namespace MarsFramework
             Thread.Sleep(5000);
 
             Base.test.Log(LogStatus.Info, "Skill added successfully");
+            
             //Verification
-
-            ManageListing.Click();
+            Thread.Sleep(4000);
             string ExpectedResult1 = Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             string ActualResult1 = ActualValue1.Text;
 

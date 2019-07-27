@@ -108,3 +108,4 @@ C:\Users\Bhushan\Desktop\CompTask_New\MarsFramework\MarsFramework\obj\Debug\Mars
 C:\Users\Bhushan\Desktop\CompTask_New\MarsFramework\MarsFramework\obj\Debug\MarsFramework.csproj.CopyComplete
 C:\Users\Bhushan\Desktop\CompTask_New\MarsFramework\MarsFramework\obj\Debug\MarsFramework.dll
 C:\Users\Bhushan\Desktop\CompTask_New\MarsFramework\MarsFramework\obj\Debug\MarsFramework.pdb
+C:\Users\Bhushan\Desktop\CompTask_New\MarsFramework\MarsFramework\bin\Debug\SeleniumExtras.PageObjects.dll

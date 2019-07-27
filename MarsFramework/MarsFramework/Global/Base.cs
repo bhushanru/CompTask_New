@@ -62,7 +62,7 @@ namespace MarsFramework.Global
             else
             {
                 SignUp obj = new SignUp();
-                obj.register();
+                obj.Register();
             }
             
         }
@@ -79,7 +79,7 @@ namespace MarsFramework.Global
             // calling Flush writes everything to the log file (Reports)
             extent.Flush();
             // Close the driver :)            
-            //GlobalDefinitions.driver.Close();
+            GlobalDefinitions.Driver.Close();
         }
         #endregion
 

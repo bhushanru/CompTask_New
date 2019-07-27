@@ -54,6 +54,8 @@ namespace MarsFramework.Pages
         private IWebElement ActResult3 { get; set; }
         #endregion
 
+
+        //Edit Method
         public void EditListing(IWebDriver Driver)
         {
 
@@ -80,42 +82,38 @@ namespace MarsFramework.Pages
             Thread.Sleep(5000);
 
             //Verification   
-            var title2 = Global.GlobalDefinitions.ExcelLib.ReadData(2, "Title");
-            if (title1 == title2)
+
+            ManageListingsMenu.Click();
+            Thread.Sleep(7000);
+            //Click Edit icon
+            IJavaScriptExecutor js2 = (IJavaScriptExecutor)Driver;
+            js2.ExecuteScript("arguments[0].click();", Element);
+            Thread.Sleep(5000);
+            try
             {
-                Console.WriteLine("Test1 passed : title edited successfully");
-                Console.WriteLine("Test Pass: Skill Added");
-                // Screenshot
-                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");
-                Base.test.Log(LogStatus.Info, "Image example: " + img);
-                // end test. (Reports)
-                Base.extent.EndTest(Base.test);
-                // calling Flush writes everything to the log file (Reports)
-                Base.extent.Flush();
-                // Close the driver :)            
-                //GlobalDefinitions.driver.Close();
-                
+                       
+            Assert.AreEqual("Industry Connect Software Tester", Title.Text);
+
+            Console.WriteLine("Test1 passed : title edited successfully");
+            //Screenshot
+            String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");
+            Base.test.Log(LogStatus.Info, "Image example: " + img);
+            //end test. (Reports)
+            Base.extent.EndTest(Base.test);
+            //calling Flush writes everything to the log file(Reports)
+            Base.extent.Flush();
             }
-            else
+
+            catch (Exception e)
             {
-                Console.WriteLine("Test1 failed : Title not edited");
+                Console.WriteLine(e);
+                Console.WriteLine("Test Fail: Skill listing NOT Edited");
             }
-            //try
-            //{
-            //    Assert.AreEqual("Industry Connect Software Tester", ManageListTitle.Text);
-            //    Console.WriteLine("Test Pass: Skill listing edited");
-            //}
-            //catch (Exception e)
-            //{
-
-            //    Console.WriteLine("Test Fail: Skill listing NOT Edited");
-            //}
+                       
+            }
 
 
-        }
-
-
-
+        //Delete Method
 
         public void DeleteListing(IWebDriver Driver)
         {
@@ -124,59 +122,39 @@ namespace MarsFramework.Pages
             ManageListingsMenu.Click();
             Thread.Sleep(5000);
 
+            //Identify Title of the record to be deleted
             IJavaScriptExecutor js3 = (IJavaScriptExecutor)Driver;
             js3.ExecuteScript("arguments[0].click();", ManageListTitle);
 
-            //try
-            //{
-            //    Assert.IsTrue(ManageListTitle.Displayed);
-            //    //Click Delete Icon
-            //    IJavaScriptExecutor js2 = (IJavaScriptExecutor)Driver;
-            //    js2.ExecuteScript("arguments[0].click();", Delelement);
+            //Click Delete icon
+            IJavaScriptExecutor js2 = (IJavaScriptExecutor)Driver;
+            js2.ExecuteScript("arguments[0].click();", Delelement);
 
-            //    //click "Yes" in delete pop up
-            //    DelYes.Click();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("Title cannot be found");
-            //}
+            //click "Yes" in delete pop up
+            DelYes.Click();
 
             //Verfication
-            string ExpResult3 = "Software Tester has been deleted";
-            Thread.Sleep(2000);
-            string ActualResult3 = ActResult3.Text;
-
-            if (ExpResult3 == ActualResult3)
+            try
             {
-                Console.WriteLine("Test 3 Pass : Record deleted successully");
+            Thread.Sleep(5000);
+            Assert.IsTrue(ActResult3.Displayed);
+            Console.WriteLine("Test 3 Pass : Record deleted successfully");
 
-                // Screenshot
-                String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
-                Base.test.Log(LogStatus.Info, "Image example: " + img);
-                // end test. (Reports)
-                Base.extent.EndTest(Base.test);
-                // calling Flush writes everything to the log file (Reports)
-                Base.extent.Flush();
-                // Close the driver :)            
-                //GlobalDefinitions.driver.Close();
+            // Screenshot
+            String img = Global.GlobalDefinitions.SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.Driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+            Base.test.Log(LogStatus.Info, "Image example: " + img);
+            // end test. (Reports)
+            Base.extent.EndTest(Base.test);
+            // calling Flush writes everything to the log file (Reports)
+            Base.extent.Flush();
+            
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("Test 3 Fail: Record not deleted");
+                Console.WriteLine(e);
+                Console.WriteLine("Test 3 Pass : Record NOT deleted");
             }
-            //        try
-            //        {
-
-            //            Assert.AreEqual("Software tester 7 has been deleted",ActResult3.Text);
-            //            Console.WriteLine("Test Fail: Skill listing still present");
-            //        }
-            //        catch(Exception e)
-            //        {
-            //            Console.WriteLine("Test Pass: Skill listing Deleted");
-            //        }
-            //    }
-            //}
+            
         }
     }
 }
